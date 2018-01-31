@@ -44,7 +44,7 @@ def frequence(fic):
     car = dict();
     total=0;
     for line in fic1: #parcour du dictionnaire 
-        for s in line: #parcour de chaque carcter dans le dictionnaire
+        for s in line[:-1]: #parcour de chaque carcter dans le dictionnaire et le :-1 permet de prendre toute la ligne sauf le dernier caracter qui est le \n
             total=total+1; #nbr total des caracters
             if s in car.keys(): #parcours des cles et maj de l'occurence
                 car[s]=car[s]+1
@@ -57,12 +57,9 @@ def frequence(fic):
 
     return car
 
-def main(argv):
+def main(argv): #definition du main qui fait appel à la fonction frequence
 	tab=frequence(argv)
-	for c,v in tab.items():
-		print(c)
-		print(" ")
-		print(v)
-		print("\n")
-
-main(sys.argv[1])
+	for c,v in tab.items():#parcours du dictionnaire produit par frequence et l'affichage avec le bon format
+		print(str(c)+" "+str(v)+"\n")
+		
+main(sys.argv[1]) #appel à la fonction main
