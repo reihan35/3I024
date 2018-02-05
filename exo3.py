@@ -11,7 +11,7 @@ def cesar(chaine,cle):#la fonction s'utilise a la fois pour chiffrer et dechiffr
 	return  s
 
 string=cesar("ivirynpelcgbybtvr","n")
-print(string)
+print("cesar: "+ string)
 
 def mono_alph_chif(chaine,newalph):#chaine:le message a coder et sub le codage
 	
@@ -31,7 +31,7 @@ def mono_alph_chif(chaine,newalph):#chaine:le message a coder et sub le codage
     
 s=mono_alph_chif("hello","abcdwfgxijkamnzpqrstuvwxyz")
 #s=mono_alph_chif("xwaaz","abcdefghijklmnopqrstuvwxyz")
-#print(s)	
+print("mono-alp: "+s)	
 	
 def vigenere_table():#fonction utilisée pour creer le tableau de vigenere 
 	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
@@ -46,8 +46,8 @@ def vigenere_table():#fonction utilisée pour creer le tableau de vigenere
 			tmp.append(alphabet[(i+a)%26])
 		table.append(tmp)
 	
+	
 	return table
-
 
 def vigenere_chif(chaine,cle):#fonction de chiffrement vigenere
 	
