@@ -5,4 +5,4 @@ do
 	./nettoie $i a$i
 done
 
-python3 exo4.py afic1.txt afic2.txt afic3.txt
+python3 exo4.py
