@@ -1,6 +1,6 @@
 def cesar(chaine,cle):#la fonction s'utilise a la fois pour chiffrer et dechiffrer
 	s=""   
-	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	
 	permut=alphabet.index(cle) #recuperation de la position de la cle dans l'alphabet
 
@@ -10,7 +10,7 @@ def cesar(chaine,cle):#la fonction s'utilise a la fois pour chiffrer et dechiffr
 	
 	return  s
 
-string=cesar("ivirynpelcgbybtvr","n")
+string=cesar("IVIRYNPELCGBYBTVR","N")
 print("cesar: "+ string)
 
 def mono_alph_chif(chaine,newalph):#chaine:le message a coder et sub le codage
@@ -42,11 +42,13 @@ def vigenere_table():#fonction utilisée pour creer le tableau de vigenere
 
 	for i in range(0,len(alphabet)):	#Constructuin d'une matrice ou chaque ligne est les lettre d'alphabet decale de 1
 		tmp=[]		
-		for a in range(0,26):	
+		for a in range(0,25):	
 			tmp.append(alphabet[(i+a)%26])
+			
 		table.append(tmp)
 	
-	
+	#print(table)
+
 	return table
 
 def vigenere_chif(chaine,cle):#fonction de chiffrement vigenere
@@ -55,11 +57,15 @@ def vigenere_chif(chaine,cle):#fonction de chiffrement vigenere
 	
 	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 	s=""
-	for c in chaine:
-		ind=(chaine.index(c))%len(cle)
+	for i in range(0,len(chaine)):
+		lon=len(cle)
+		ind=(i%lon)
 		key=cle[ind]
-		s = s + table[alphabet.index(key)][alphabet.index(c)]
+		s = s + table[alphabet.index(key)][alphabet.index(chaine[i])]
 	return s
+
+s=vigenere_chif("lattaqueestprevuepourdemain","cipher")
+print(s)
 
 def vigenere_dechif(chaine,cle):#On verifie si dans la ligne de chaque lettre de la cle la lettre de la chaine et on renvoie la colonne correspondante
 
