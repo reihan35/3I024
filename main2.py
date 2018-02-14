@@ -20,20 +20,33 @@ def main():
 		x = input("Que souhaitez vous faire ?")
 		print("Vous avez choisi "+x)
 		
-		if(x=='0'or x=='3'):
+		if(x=='0'):
 			s=input("Saissiez votre texte (en MAJUSCULE) :")
 			cle=input("Saissiez votre cle (en MAJUSCULE):")
-			chiffre=cesar(s,cle)
+			chiffre=cesar_chif(s,cle)
+			print("Voici le resultat :")
+			print(chiffre)
+
+		if(x=='3'):
+			s=input("Saissiez votre texte (en MAJUSCULE) :")
+			cle=input("Saissiez votre cle (en MAJUSCULE):")
+			chiffre=cesar_dechif(s,cle)
 			print("Voici le resultat :")
 			print(chiffre)
 		
-		if(x=='1' or x=='4'):
+		if(x=='1'):
 			s=input("Saissiez votre texte (en MAJUSCULE) :")
 			cle=input("Saissiez votre cle (en MAJUSCULE):")
 			chiffre=mono_alph_chif(s,cle)
 			print("Voici votre texte en chiffre :")
 			print(chiffre)
 		
+		if(x=='4'):
+			s=input("Saissiez votre texte (en MAJUSCULE) :")
+			cle=input("Saissiez votre cle (en MAJUSCULE):")
+			chiffre=mono_alph_dechif(s,cle)
+			print("Voici votre texte en chiffre :")
+			print(chiffre)
 		if(x=='2'):
 			s=input("Saissiez votre texte (en MAJUSCULE) :")
 			cle=input("Saissiez votre cle (en MAJUSCULE):")

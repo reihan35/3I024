@@ -139,21 +139,3 @@ def cryptanalyse_monoalph(tabFr,fic,fic2):#fonction de la cryptanalyse elle pren
 				fic2.write(crypt[lettre])
 	
 	return 1
-
-'''
-l=["afic1.txt","afic2.txt","afic3.txt"]
-tab=freqFr(l)
-dicti=cryptanalyse(tab,"afic2.txt","dechiffre")
-print(dicti)
-
-def main(argv):
-	l=[]
-	for i in argv:
-		l.append(i)
-		
-	tab=freqFr(l)
-
-	for c,v in tab.items():
-		print(str(c)+" "+str(v)+"\n")
-		
-main(sys.argv)'''

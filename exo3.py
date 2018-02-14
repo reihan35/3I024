@@ -1,4 +1,4 @@
-def cesar(chaine,cle):#la fonction s'utilise a la fois pour chiffrer et dechiffrer
+def cesar_chif(chaine,cle):
 	s=""   
 	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	
@@ -10,29 +10,44 @@ def cesar(chaine,cle):#la fonction s'utilise a la fois pour chiffrer et dechiffr
 	
 	return  s
 
-#string=cesar("HELLO","O")
-#print("cesar: "+ string)
+def cesar_dechif(chaine,cle):
+	s=""   
+	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+	
+	permut=alphabet.index(cle) #recuperation de la position de la cle dans l'alphabet
+
+	for c in chaine: #pour chaque lettre du mot on rajoute a sa postion la position de la cle modulo 26
+		ind = alphabet.index(c) 
+		s = s + alphabet[(ind-permut)%26]
+	
+	return  s
 
 def mono_alph_chif(chaine,newalph):#chaine:le message a coder et sub le codage
 	
-	alph = {1:'a',2:'a',3:'a',4:'a',5:'a',6:'a',7:'a',8:'a',9:'a',11:'a',12:'a',13:'a',14:'a',15:'a',16:'a',17:'a',18:'a',19:'a',20:'a',21:'a',22:'a',23:'a',24:'a',25:'a',26:'a',27:'a'}
-
 	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	
-	for i in range(1,len(newalph)): #On parcour newalph et on associe a chque lettre sa remplacente dans le dictionnaire (les cle dans le dictionnaire sont la position des lettre dans l'aphabet classique et les valurs sont le lettres de newalph)
-		alph[i]=newalph[i]
-	    
 	string=""
 	for i in chaine:
 		ind = alphabet.index(i) #index de la lettre dans l'alphabet initial
-		string = string + alph[ind] #On recupere la valeur associée à la lettre (de la chaine) dans le dictionaire
+		string = string + newalph[ind] #On recupere la valeur associée à la lettre (de la chaine) dans le dictionaire
         
 	return string
-    
-#s=mono_alph_chif("hello","abcdwfgxijkamnzpqrstuvwxyz")
-#s=mono_alph_chif("xwaaz","abcdefghijklmnopqrstuvwxyz")
-#print("mono-alp: "+s)	
+
+
+def mono_alph_dechif(chaine,newalph):#chaine:le message a coder et sub le codage 
+	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	
+	string=""
+	for i in chaine:
+		ind = newalph.index(i) #index de la lettre dans l'alphabet initial
+		string = string + alphabet[ind] #On recupere la valeur associée à la lettre (de la chaine) dans le dictionaire
+        
+	return string
+
+#s1=mono_alph_chif("ALPHA","POIUZTREWQLKJHGFDSAMNBVCXY")
+#s=mono_alph_dechif("PKFEP","POIUZTREWQLKJHGFDSAMNBVCXY")
+#print(s1 + s)
+
 def vigenere_table():#fonction utilisée pour creer le tableau de vigenere 
 	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	
@@ -64,9 +79,6 @@ def vigenere_chif(chaine,cle):#fonction de chiffrement vigenere
 		s = s + table[alphabet.index(key)][alphabet.index(chaine[i])]
 	return s
 
-#s=vigenere_chif("lattaqueestprevuepourdemain","cipher")
-#print(s)
-
 def vigenere_dechif(chaine,cle):#On verifie si dans la ligne de chaque lettre de la cle la lettre de la chaine et on renvoie la colonne correspondante
 
 	table=vigenere_table()
@@ -84,6 +96,4 @@ def vigenere_dechif(chaine,cle):#On verifie si dans la ligne de chaque lettre de
 				s = s + alphabet[ind2]
 	return s
 
-#vigenere_dechif("xsmsrxirdvleiuvnumejrsanku","cesar")
-#vigenere_chif("LATTAQUEESTPREVUEPOURDEMAIN","CIPHER")
 
