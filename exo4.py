@@ -33,13 +33,21 @@ def frequence(fic):#fonction qui renvoi la frequence des lettre dans un fichier'
 
    # return tab
 
+def file_to_text(fic):
+	fic1=open(fic,'r')	
+	text=""
+	for line in fic1:
+		for s in line:
+			text=text+s
+	return text
+
 def cryptanalyse_cesar(tabFr,fic,fic2):#fonction de la cryptanalyse elle prend le fichier fic chiffré et renvoie fichier fic2 dechiffre'''
 	
 	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	tab1=frequence(fic); #On construit le tableau des frequances du fichier chiffrés
 	#print(tab)
 	tab_trie=sorted(tab1.items(), reverse=True, key=operator.itemgetter(1)) #On va ordonner les elements de manier decroissantes (la lettre ayant la frequnce la plus elevee au debut)
-	print(tab_trie)
+	#print(tab_trie)
 	freqFr_trie=sorted(tabFr.items(), reverse=True, key=operator.itemgetter(1)) #On va ordonner les elements de manier decroissantes (la lettre ayant la frequnce la plus elevee au debut) 
 	#print(freqFr_trie)
 	l1=[] #liste des frequences des lettres dans l'alphabet
@@ -47,8 +55,11 @@ def cryptanalyse_cesar(tabFr,fic,fic2):#fonction de la cryptanalyse elle prend l
 	crypt=dict()
 	for c1,v2 in freqFr_trie:  #On parcours le tableau et on rajoute chaque lettre rencontrées (donc la liste des lettre croissante)
 		l1.append(c1)
+	
+	print("Voici la list (decroissante) des lettres les plus utilisée dans la langue francaise")	
 	print(l1)
 	
+	print("Voici la liste (decroissante) des lettres les plus utilisée du text fournis ")
 	for c,v in tab_trie: #On fait de meme pour le fichier chiffre
 		l2.append(c)
 	print(l2)
@@ -61,55 +72,72 @@ def cryptanalyse_cesar(tabFr,fic,fic2):#fonction de la cryptanalyse elle prend l
 	#crypt[l1[i]]=l2[i]
 	a=alphabet.index(l1[0])
 	permut =( alphabet.index(l2[0])- a )% 26
-	print(permut)
-	
+	print(permut)	
+
 	cle = alphabet[permut]
 	print(cle)
+
+	text=file_to_text(fic)
+	
+	dechiffre=cesar(text,cle)
+	#print(dechiffre)
+	
 	
 	#fic1=open(fic,'r')
-	#fic2=open(fic2,'w')
+	fic2=open(fic2,'w')
 	 
-	#for line in fic1: #On parcour le dictionnaire 
-#		for s in line:
-#			fic2.write(crypt[s])
-#	
+	fic2.write(dechiffre)
+	
 	return 1
 
-l=["afic1.txt","afic2.txt","afic3.txt"]
-tab={'A':8.40,'B':1.06,'C':3.03,'D':4.18,'E':17.26,'F':1.12,'G':1.27,'H':0.92,'I':7.34,'J':0.31,'K':0.05,'L':6.01,'M':2.96,'N':7.13,'O':5.26,'P':3.01,'Q':0.99,'R':6.55,'S':8.08,'T':7.07,'U':5.74,'V':1.32,'W':0.04,'X':0.45,'Y':0.30,'Z':0.12}
-print(tab)
-dicti=cryptanalyse_cesar(tab,"afic2.txt","dechiffre")
+#l=["afic1.txt","afic2.txt","afic3.txt"]
+#tabFr={'A':8.40,'B':1.06,'C':3.03,'D':4.18,'E':17.26,'F':1.12,'G':1.27,'H':0.92,'I':7.34,'J':0.31,'K':0.05,'L':6.01,'M':2.96,'N':7.13,'O':5.26,'P':3.01,'Q':0.99,'R':6.55,'S':8.08,'T':7.07,'U':5.74,'V':1.32,'W':0.04,'X':0.45,'Y':0.30,'Z':0.12}
+#print(tab)
+#textchif=file_to_text("afic5.txt")
+#text=cesar(textchif,"J")
+
+#fic1=open("aficchifre.bxt","w")
+#fic1.write(text)
+
+#dicti=cryptanalyse_cesar(tabFr,"aficchifre.txt","dechiffre")
 #print(dicti)
 
 def cryptanalyse_monoalph(tabFr,fic,fic2):#fonction de la cryptanalyse elle prend le fichier fic chiffré et renvoie fichier fic2 dechiffre'''
 	tab1=frequence(fic); #On construit le tableau des frequances du fichier chiffrés
 	tab_trie=sorted(tab1.items(), reverse=True, key=operator.itemgetter(1)) #On va ordonner les elements de manier decroissantes (la lettre ayant la frequnce la plus elevee au debut)
-	print(tab_trie)
+	#print(tab_trie)
 	freqFr_trie=sorted(tabFr.items(), reverse=True, key=operator.itemgetter(1)) #On va ordonner les elements de manier decroissantes (la lettre ayant la frequnce la plus elevee au debut) 
-	print(freqFr_trie)
+	#print(freqFr_trie)
 	l1=[] #liste des frequences des lettres dans l'alphabet
 	l2=[] #liste des frequences des lettre dans le text chiffre
 	crypt=dict()
 	for c1,v2 in freqFr_trie:  #On parcours le tableau et on rajoute chaque lettre rencontrées (donc la liste des lettre croissante)
 		l1.append(c1)
+	print("Voici la list (decroissante) des lettres les plus utilisée dans la langue francaise :\n")
+		
 	print(l1)
 	
 	for c,v in tab_trie: #On fait de meme pour le fichier chiffre
 		l2.append(c)
+	print("Voici la liste (decroissante) des lettres les plus utilisée du text fournis :\n")	
 	print(l2)
 	 	
+	print("Donc on peut en deduire que :\n")	
 	size=len(l2)# On parcours les listes 
 	for i in range(0,size):
 		print("la lettre "+l1[i]+" dans le text chiffre pourrait etre "+l2[i]+" dans l'alphabet")
 		crypt[l1[i]]=l2[i]
-	 	
+
+	print("Cela est evidamment (tres) approximatif")
+
 	fic1=open(fic,'r')
 	fic2=open(fic2,'w')
 	 
-	#for line in fic1: #On parcour le dictionnaire 
-#		for s in line:
-#			fic2.write(crypt[s])
-#	
+	for line in fic1: #On parcour le dictionnaire 
+		for word in line:
+			for lettre in word:
+				fic2.write(crypt[lettre])
+	
 	return 1
 
 '''
