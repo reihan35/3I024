@@ -1,0 +1,8 @@
+#! /bin/bash
+
+for i in $@
+do
+	./nettoie $i a$i
+done
+
+python3 exo4.py
