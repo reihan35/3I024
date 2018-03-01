@@ -3,6 +3,8 @@ import statistics
 import sys
 
 tc="ABPWHIXKOCRPFQZVAGYBEKGYGVOLAAVCCEFHRGLNIIGNWVMTAAUPJWOZQWAYCBOAAKJCZBLZJAYVPQEEKBNLRIBVAYWFNOVCKGHHZJCJDLXKPDLRPORLIFASRRVLBLOGPEVMCNSRFVABEMQQIRFVRBZONAPFREDRIAWOBCBKHQVMWEFCXHAAVQTAVCBVWVKBPYBIBHQEZBWTNGOQLBJAGHNTZKZREQOWYXOGHRJJQPFTLPYVCFCJGJAGONWBOIRRQVAAUPSQRCNWQAWOCLCVXOWCFOVAPVPVPEFMDANLMQQEVQTAIIXKHRJJQPFJBPRBCBPPYVPGYEZQUNRJQGJGCBULEZQGOGWLTPZRFUHNTECEEVPVBNZYNAYRSKAAVPVLNJIQJTLBGHYVBUPYROIAWVPWEFRIJKCZQCHWRFGPRWOCLCVMCNYRCQQQIBUEGLOGCNIAGOYVPRWEFIGORCIGOAVPKCAZCKAAKMCOIIXKIREQINNEAEDBJB"
+tabFr={'A':7.42,'B':1.14,'C':3.18,'D':3.67,'E':14.43,'F':1.11,'G':1.23,'H':1.11,'I':4.96,'J':0.34,'K':0.29,'L':5.34,'M':2.62,'N':6.39,'O':5.02,'P':2.49,'Q':0.65,'R':6.07,'S':6.51,'T':5.92,'U':4.49,'V':1.11,'W':0.17,'X':0.38,'Y':0.46,'Z':0.15}
+tabFr2={'A':9.42,'B':1.02,'C':2.64,'D':3.39,'E':15.87,'F':0.95,'G':1.04,'H':0.77,'I':8.41,'J':0.89,'K':0.00,'L':5.34,'M':3.24,'N':7.15,'O':5.14,'P':2.86,'Q':1.06,'R':6.46,'S':7.09,'T':7.26,'U':6.24,'V':2.15,'W':0.00,'X':0.30,'Y':0.24,'Z':0.32}
 
 def file_to_text(fic): #fonction qui transforme un fichier en une chaine de caracter
 	fic1=open(fic,'r')
@@ -192,8 +194,6 @@ def max_dic(dic):
 	return max(l)
 
 def correlation_colonne(textchiff,i):
-	l=[]
-	l2=[]
 	matrice=string_to_matrice(textchiff,i)
 	s=trouve_colonne(matrice,i)
 	#s2=text_to_xi(textFr) #les xi (concernant le texte en francais)
@@ -202,9 +202,10 @@ def correlation_colonne(textchiff,i):
 	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	l={}
 	for j in s: #pour chaque colonne ck
+		l2=[]
 		for i in alphabet:
-			d=freq_to_number((frequence(cesar_dechif(j,i))),len(j))
-			m=pearson_def(dict_to_list(tabFr), dict_to_list(d))
+			d=frequence(cesar_dechif(j,i))
+			m=pearson_def(sort_dicti(tabFr), sort_dicti(d))
 			l[i]=m
 		#print(max_dic(l))
 		#print(list(l.keys())[list(l.values()).index(max_dic(l))])
@@ -228,7 +229,8 @@ def correlation(textchiff):
 	return 0
 
 def key_of(textchiff):
-	key=correlation(textchiff)
+	key=correlation(textchiff) #renvoie la longueur de la clef
+	#print(key)
 	return find_key(textchiff,key)
 
 def find_key(textchiff,i):
@@ -243,11 +245,13 @@ def find_key(textchiff,i):
 	alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	l={}
 	for j in s: #pour chaque colonne ck
+		print(j)
 		for i in alphabet:
-			d=freq_to_number((frequence(cesar_dechif(j,i))),len(j))
-			m=pearson_def(dict_to_list(tabFr), dict_to_list(d))
+			l2=[]
+			d=frequence(cesar_dechif(j,i))
+			m=pearson_def(sort_dicti(tabFr), sort_dicti(d))
 			l[i]=m
-		#print(max_dic(l))
+		print(list(l.keys())[list(l.values()).index(max_dic(l))])
 		string=string+list(l.keys())[list(l.values()).index(max_dic(l))]
 		l2.append(max_dic(l))
 
@@ -265,6 +269,16 @@ def cryptanalyse_V_colonne_i(fic1):
 	fi2.write(key_of(text))
 	fi3.write(vigenere_dechif(text,key_of(text)))
 
+def sort_dicti(dic):
+	#keylist.sort()
+	l=[]
+	for key in sorted(dic.keys()):
+		#print(key)
+		l.append(dic[key])
+	return l
+
+#print(sort_dicti({"b":2,"c":1,"a":4}))
+
 def main():
 	if len(sys.argv)!=2:
 		print("Il faut mettre exactement 1 argument")
@@ -277,8 +291,8 @@ def main():
 main()
 
 
-tc="SYRAEORYTSCGJHQPNPSJQLTTYZXKUHHHMKEJFQHYTRSILTFTOXLHYNXICVKLSGXTAXIOTHUMNUQGELPFIMYSDXDCSGUMAQLONVUHUHDGZVPIWZXXBUPBFXQLTTYGJTHIASFSQCPFLZSHIBZIJZGXWBYHJRJGZKPAOAPBYNTMHFNPOJQLJUOSQSYHCBDUQNCZUDGIIIHUEKFHYSIIXIYFBLUGUMWUJGZWRYZBKUGKOUGVAMUPNBMUUKNUMOUSKPNPSRQGYKCZXXBYRLOZUFPDNLZIJITAFYFNYUJZWXUXDAFSBLWQMZWIDCSLRAQKTUHIJPUMSQBOBXCTOHTRYHRWJXMMTEHXFGEOSLMKERPKRYJPQNDAFAZCZKLEJGEOQYBOOHXCYGJZUHSVIPQLFYMYJWEFDLWACNPJOIJWFURZVXBKTIDZUIDMDXVKFNPJUDXEKWNBSGZMOUJPNWGODQFYMBDGOZQYDCULSYUMPURDXXUDDCFAJRLBFZW"
-
+tc="GFGRJCGUVCGIECNPFITTFNLJVUUPCIETSTLRXTZNYATKEHDBRCJSUDDOHBKETQLHJNRYWIUICFNPUBIKEBPNCEDGBVFVYYZJXCVGBCFJADKMTSOAIDQIKXUOGZNCUWPJMDKNEQIAFLWUBJYJBBLVUNTJAPJXRKGTDWPONFZJBUJPWUVJDCUXGBHQUYTKISFZNYATTVHFLEUDGIVCDFNIBTUKSFNEUATFIXNUATNYUETTUVIYPIUPOMRHDCFRHEYFQUHQRJDOAULDBZTSHRINEBRXONWQVPYJSBPBYABQCPVFBRNUHFCUUYTNAXVBJMCXNGUXPVWUU"
+#print(vigenere_dechif(tc,"PQJPQJPQJPQJ"))
 #correlation_colonne(tc,3)
 #print(key_of(tc))
 #print(vigenere_dechif(tc,"QUZHBGMTLQUVFE"))
